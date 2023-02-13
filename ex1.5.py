@@ -32,18 +32,21 @@ n=35
 r = np.arange(n)
 width = 0.25
   
-  
-# plt.bar(r, first_attempt, color = 'b',
-#         width = width, edgecolor = 'black',
-#         label='func()')
+
+plt.subplot(1,2,1)
+plt.bar(r, first_attempt, color = 'b',
+         width = width, edgecolor = 'black',
+         label='func()')
+plt.title("Original Fibonacci Sequence Timing Results")
+plt.xlabel("Input Computed (n)")
+plt.ylabel("Time (s)")
+
+plt.subplot(1,2,2)
 plt.bar(r + width, second_attempt, color = 'g',
         width = width, edgecolor = 'black',
         label='improved_func()')
-  
-plt.xlabel("Input to be computed")
+plt.title("Improved Fibonacci Sequence Timing Results")
+plt.xlabel("Input Computed (n)")
 plt.ylabel("Time (s)")
-plt.title("Time taken to compute the fibonacci sequence")
-  
-plt.legend()
-  
+
 plt.show()
