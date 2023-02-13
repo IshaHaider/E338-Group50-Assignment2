@@ -4,11 +4,27 @@ import random
 sys.setrecursionlimit(20000)
 def func1(arr, low, high):
     if low < high:
-        pi = func2(arr, low, high)
+        pi = improved_func2(arr, low, high)
         func1(arr, low, pi-1)
         func1(arr, pi + 1, high)
 
 def func2(array, start, end):
+    p = array[start]
+    low = start + 1
+    high = end
+    while True:
+        while low <= high and array[high] >= p:
+            high = high - 1
+        while low <= high and array[low] <= p:
+            low = low + 1
+        if low <= high:
+            array[low], array[high] = array[high], array[low]
+        else:
+            break
+    array[start], array[high] = array[high], array[start]
+    return high
+
+def improved_func2(array, start, end):
     pivotIndex = random.randint(start, end) 
     array[start], array[pivotIndex] = array[pivotIndex], array[start]
     p = array[start]
@@ -33,13 +49,11 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
 
     # Load the json file
-    with open("ex2.json", "r") as inFile: 
+    with open("ex2.5.json", "r") as inFile: 
         content = json.load(inFile)
-    
     
     timearray = []
     arraylen = []
-    #sorted_arrays = [] #REMOVE BEFORE SUBMISSION 
     # iterate through each array and time how long it takes to sort it
     for array in content:
         arraylen.append(len(array))
@@ -47,11 +61,6 @@ if __name__ == '__main__':
         timearray.append(tm)
         print("Time for sorting array of length %d: %f seconds" % (len(array), tm))
         
-        #func1(array, 0, len(array)-1) #REMOVE BEFORE SUBMISSION 
-        #sorted_arrays.append(array) #REMOVE BEFORE SUBMISSION 
-        
-    #with open("ex2.7.json", "w") as outFile: #REMOVE BEFORE SUBMISSION 
-        #json.dump(sorted_arrays, outFile) #REMOVE BEFORE SUBMISSION 
     # plot timing results
     plt.scatter(arraylen, timearray)
     plt.xlabel("Length of Array (n)")
