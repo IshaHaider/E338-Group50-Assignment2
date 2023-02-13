@@ -49,18 +49,19 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
 
     # Load the json file
-    with open("ex2.5.json", "r") as inFile: 
+    with open("ex2.json", "r") as inFile: 
         content = json.load(inFile)
     
     timearray = []
     arraylen = []
+
     # iterate through each array and time how long it takes to sort it
     for array in content:
         arraylen.append(len(array))
         tm = timeit.timeit(lambda: func1(array, 0, len(array)-1),number=1)
         timearray.append(tm)
-        print("Time for sorting array of length %d: %f seconds" % (len(array), tm))
-        
+        #print("Time for sorting array of length %d: %f seconds" % (len(array), tm))
+
     # plot timing results
     plt.scatter(arraylen, timearray)
     plt.xlabel("Length of Array (n)")
